@@ -1,16 +1,17 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import KeycloakAPI from "./KeycloakAPI";
+import ContextAPI from "./ContextAPI";
 
 if(!process.contextIsolated) {
   throw new Error('contextIsolation must be enabled!');
 }
 
-const keycloakAPI : KeycloakAPI = {
-  login: (url: string) => ipcRenderer.invoke('keycloak:login', url)
+const keycloakAPI : ContextAPI = {
+  login: (url: string) => ipcRenderer.invoke('keycloak:login', url),
+  getAppVersion: () => ipcRenderer.invoke('app:version')
 }
 
 try {
-  contextBridge.exposeInMainWorld('keycloak', keycloakAPI)
+  contextBridge.exposeInMainWorld('context', keycloakAPI)
 } catch(error) {
   console.log(error);
 }

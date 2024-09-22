@@ -1,9 +1,9 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
-import KeycloakAPI from "./KeycloakAPI";
+import ContextAPI from "./ContextAPI";
 
 declare global {
   interface Window {
-    keycloak: KeycloakAPI
+    context: ContextAPI
     api: unknown
   }
 }

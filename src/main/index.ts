@@ -69,8 +69,9 @@ function createWindow(): void {
   }
 }
 
-// autoUpdater.autoDownload = false;
-// autoUpdater.autoInstallOnAppQuit = true;
+// Auto update flags
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -86,15 +87,19 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.on('ping', () => console.log('pong'));
+
+  ipcMain.handle('app:version', () => {
+    return app.getVersion();
+  });
+
   ipcMain.handle('keycloak:login', (_, url: string) => {
     createAuthWindow(url, () => {
       handleCheckSso();
       mainWindow.reload()
     })
-  })
+  });
 
   createWindow()
 
@@ -110,8 +115,15 @@ app.whenReady().then(() => {
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+
+    autoUpdater.checkForUpdates();
+  });
+
+  autoUpdater.on('update-available', (_info: UpdateInfo) => {
+    const update = autoUpdater.downloadUpdate();
+    console.log(update);
+  });
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
