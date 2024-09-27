@@ -39,5 +39,7 @@ appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
-  provider: generic
-  url: https://github.com/k-zamzam/electron-keycloak-example
+  provider: github
+  owner: k-zamzam
+  repo: https://github.com/k-zamzam/electron-keycloak-example
+  releaseType: release

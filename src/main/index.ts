@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -125,7 +125,11 @@ app.whenReady().then(() => {
   });
   
   autoUpdater.on('update-available', (_info: UpdateInfo) => {
-    console.log('Update is available');
+    dialog.showMessageBox({
+      type: 'info',
+      title: 'Update Available',
+      message: 'A new version is available. Downloading now...',
+    });
   });
 })
 
