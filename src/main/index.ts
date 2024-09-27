@@ -120,9 +120,12 @@ app.whenReady().then(() => {
     autoUpdater.checkForUpdates();
   });
 
+  autoUpdater.on('checking-for-update', () => {
+    console.log('Checking for update');
+  });
+  
   autoUpdater.on('update-available', (_info: UpdateInfo) => {
-    const update = autoUpdater.downloadUpdate();
-    console.log(update);
+    console.log('Update is available');
   });
 })
 
