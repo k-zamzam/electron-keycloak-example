@@ -36,5 +36,3 @@ jobs:
           files: |
             dist/*.zip
             dist/*.dmg
-            dist/*.AppImage
-            dist/*.tar.gz
