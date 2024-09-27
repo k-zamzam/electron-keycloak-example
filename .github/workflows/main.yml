@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [windows-latest]
 
     steps:
       - name: Check out Git repository
@@ -28,9 +28,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: build-mac
-        if: matrix.os == 'macos-latest'
-        run: npm run build:mac
+      - name: build-win
+        if: matrix.os == 'windows-latest'
+        run: npm run build:win
 
       - name: release
         uses: softprops/action-gh-release@v1
