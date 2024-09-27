@@ -34,5 +34,4 @@ jobs:
         with:
           draft: true
           files: |
-            dist/*.zip
             dist/*.dmg
