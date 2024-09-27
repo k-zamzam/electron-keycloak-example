@@ -38,8 +38,8 @@ linux:
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
-publish:
-  provider: github
-  owner: k-zamzam
-  repo: https://github.com/k-zamzam/electron-keycloak-example
-  releaseType: release
+# publish:
+#   provider: github
+#   owner: k-zamzam
+#   repo: https://github.com/k-zamzam/electron-keycloak-example
+#   releaseType: release
