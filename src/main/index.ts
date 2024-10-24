@@ -73,6 +73,8 @@ function createWindow(): void {
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;
 
+
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -116,22 +118,44 @@ app.whenReady().then(() => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
-
-    autoUpdater.checkForUpdates();
   });
 
-  autoUpdater.on('checking-for-update', () => {
-    console.log('Checking for update');
+  autoUpdater.checkForUpdatesAndNotify();
+});
+
+autoUpdater.on('checking-for-update', () => {
+  console.log('Checking for update');
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Update Available',
+    message: 'Checking for updates',
   });
-  
-  autoUpdater.on('update-available', (_info: UpdateInfo) => {
-    dialog.showMessageBox({
-      type: 'info',
-      title: 'Update Available',
-      message: 'A new version is available. Downloading now...',
-    });
+});
+
+autoUpdater.on('update-not-available', (_info: UpdateInfo) => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'No Update Available',
+    message: `No new update. Version ${_info.version}, Files: ${_info.files.toString()}, Release name ${_info.releaseName}`
   });
-})
+});
+
+
+autoUpdater.on('update-available', (_info: UpdateInfo) => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Update Available',
+    message: `NEW UPDATE DETECTED. Version ${_info.version}, Files: ${_info.files.toString()}, Release name ${_info.releaseName}`
+  });
+});
+
+autoUpdater.on("error", (info) => {
+  dialog.showMessageBox({
+    type: 'error',
+    title: 'Update Error',
+    message: `Error: ${info}`,
+  });
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
