@@ -22,7 +22,7 @@ function App(): JSX.Element {
 
   if(!KeycloakService.isLoggedIn()) {
     return <>
-      <h1>Login</h1>
+      <h1>Sign in</h1>
       <button onClick={login}>Login</button>
       <p>Version {appVersion}</p>
     </>

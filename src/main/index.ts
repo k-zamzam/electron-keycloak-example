@@ -157,7 +157,7 @@ autoUpdater.on("update-downloaded", (_info) => {
     title: 'Update downloaded',
     message: `Update downloaded`
   }).then((returnValue) => {
-    if(returnValue.response === 0)   autoUpdater.quitAndInstall();
+    if(returnValue.response === 0) autoUpdater.quitAndInstall();
   });;  
 });
 
