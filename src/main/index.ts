@@ -73,8 +73,6 @@ function createWindow(): void {
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;
 
-
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -146,7 +144,21 @@ autoUpdater.on('update-available', (_info: UpdateInfo) => {
     type: 'info',
     title: 'Update Available',
     message: `NEW UPDATE DETECTED. Version ${_info.version}, Files: ${_info.files.toString()}, Release name ${_info.releaseName}`
+  }).then((returnValue) => {
+    if(returnValue.response === 0) autoUpdater.downloadUpdate();
+
   });
+
+});
+
+autoUpdater.on("update-downloaded", (_info) => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Update downloaded',
+    message: `Update downloaded`
+  }).then((returnValue) => {
+    if(returnValue.response === 0)   autoUpdater.quitAndInstall();
+  });;  
 });
 
 autoUpdater.on("error", (info) => {

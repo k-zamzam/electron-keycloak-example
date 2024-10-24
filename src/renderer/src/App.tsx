@@ -30,6 +30,7 @@ function App(): JSX.Element {
 
   return (
     <div>
+    <h1>Home</h1>
     <div>Hello {KeycloakService.getName()}</div>
     <button onClick={KeycloakService.logout}>Logout</button>
     <p>Version {appVersion}</p>
