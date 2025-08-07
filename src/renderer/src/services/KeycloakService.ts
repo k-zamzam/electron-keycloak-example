@@ -19,12 +19,14 @@ const initKeycloak = (onCallBack: () => void) => {
     }).catch(console.error);
 }
 
-const init = () => {
-    _kc.init({});
-}
-
 const getLoginUrl = () : string => {
     return _kc.createLoginUrl();
+}
+
+_kc.onTokenExpired = () => { 
+    _kc.updateToken(5).then(() => {
+        console.log("Token refreshed successfully");
+    }).catch(console.error)
 }
 
 const getName = () => _kc.tokenParsed?.name;
@@ -35,13 +37,11 @@ const logout = () => _kc.logout();
 
 const isLoggedIn = () => _kc.authenticated;
  
-
 export const KeycloakService = {
     initKeycloak,
     getName,
     login,
     logout,
     getLoginUrl,
-    init,
     isLoggedIn
 }

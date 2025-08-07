@@ -14,6 +14,7 @@ export function createAuthWindow(authUrl: string, callback: () => void) : void {
     });
 
     authWindow.loadURL(authUrl);
+    authWindow.show();
 
     const {
         session: { webRequest } 

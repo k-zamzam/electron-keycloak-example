@@ -19,7 +19,7 @@ jobs:
       
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, macos-latest]
 
     steps:
       - name: Check out Git repository
@@ -36,6 +36,10 @@ jobs:
       - name: build-win
         if: matrix.os == 'windows-latest'
         run: npm run build:win
+
+      - name: build-mac
+        if: matrix.os == 'macos-latest'
+        run: npm run build:mac
 
       - name: release
         uses: softprops/action-gh-release@v1

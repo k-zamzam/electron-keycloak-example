@@ -138,7 +138,6 @@ autoUpdater.on('update-not-available', (_info: UpdateInfo) => {
   });
 });
 
-
 autoUpdater.on('update-available', (_info: UpdateInfo) => {
   dialog.showMessageBox({
     type: 'info',
